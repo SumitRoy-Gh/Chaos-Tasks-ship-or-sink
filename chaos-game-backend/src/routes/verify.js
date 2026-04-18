@@ -84,19 +84,20 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 
     // AI Verification
-    const verification = await verifyImage(pathToVerify, taskLabel);
+    const result = await verifyImage(pathToVerify, taskLabel);
     
     // AI Judgment
-    const judgment = await generateJudgment(taskText, verification.passed);
+    const judgment = await generateJudgment(taskText, result.passed);
 
-    console.log(`[Verify] Result: ${verification.passed ? 'PASSED' : 'FAILED'} (${verification.confidence.toFixed(2)})`);
+    console.log(`[Verify] Result for task: "${result.passed ? 'PASSED' : 'FAILED'}"`);
+    console.log(`[Verify] Confidence: ${result.confidence.toFixed(2)} | Label: ${result.topLabel}`);
 
     res.json({
-      passed: verification.passed,
-      topLabel: verification.topLabel,
-      confidence: verification.confidence,
-      mediaType: isVideo ? 'video' : 'photo',
-      judgment
+      passed: result.passed,
+      topLabel: result.topLabel,
+      confidence: result.confidence,
+      mediaType: req.file.mimetype,
+      judgment: result.passed ? "Chaos Master is satisfied... for now." : "The Chaos Master mocks your pathetic attempt."
     });
 
   } catch (error) {

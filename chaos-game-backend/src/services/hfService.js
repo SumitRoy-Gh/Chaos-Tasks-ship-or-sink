@@ -75,11 +75,12 @@ async function verifyImage(imagePath, taskLabel) {
     };
 
   } catch (error) {
-    console.log('[CLIP Error] Falling back to random:', error.message);
+    console.error('[CLIP Error]:', error.message);
     return {
-      passed: Math.random() > 0.3,
-      topLabel: taskLabel,
-      confidence: 0.5
+      passed: false,
+      topLabel: 'error',
+      confidence: 0,
+      error: error.message
     };
   }
 }

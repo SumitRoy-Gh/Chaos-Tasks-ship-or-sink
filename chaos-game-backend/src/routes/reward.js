@@ -41,8 +41,17 @@ router.post('/', async (req, res) => {
       .run(newTotalScore, newTasksCompleted, sessionId);
 
     // 3. Log Task Result in History
-    db.prepare('INSERT INTO task_history (session_id, task_text, task_label, difficulty, passed, points_earned) VALUES (?, ?, ?, ?, ?, ?)')
-      .run(sessionId, taskText || 'Unknown', 'N/A', difficulty, passed ? 1 : 0, pointsEarned);
+    db.prepare(`
+      INSERT INTO task_history (session_id, task_text, task_label, difficulty, passed, points_earned)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(
+      sessionId, 
+      taskText || 'Unknown Task', 
+      'N/A', 
+      difficulty || 'easy', 
+      passed ? 1 : 0, 
+      pointsEarned || 0
+    );
 
     // 4. Calculate Unlocked Rewards
     const newlyUnlocked = allRewardsArray.filter(r => r.pointsRequired <= newTotalScore && r.pointsRequired > user.total_score);
