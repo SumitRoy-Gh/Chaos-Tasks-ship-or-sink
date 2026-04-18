@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 const Timer3D = dynamic(() => import('@/components/three/Timer3D'), { ssr: false })
 
 interface TaskScreenProps {
-  task: { task: string; category: string }
+  task: { task: string; taskLabel: string }
   onComplete: () => void
   onSkip: () => void
 }
@@ -39,7 +39,7 @@ export default function TaskScreen({ task, onComplete, onSkip }: TaskScreenProps
           className="px-4 py-2 rounded-full border-2 animate-rborder animate-chromatic uppercase text-sm"
           style={{ fontFamily: 'Bangers, cursive', letterSpacing: '0.06em' }}
         >
-          {task.category}
+          {task.taskLabel}
         </div>
         
         {/* 3D Timer */}

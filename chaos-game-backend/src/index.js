@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
@@ -16,7 +17,20 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // Middleware
-app.use(cors());                          // Allow frontend to talk to backend
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,    // 1 minute
+  max: 20,                 // max 20 requests per minute per IP
+  message: { error: 'Too many requests, slow down!' }
+});
+
+app.use('/api/', limiter);
+
 app.use(express.json());                  // Understand JSON data
 app.use(express.urlencoded({ extended: true })); // Understand form data
 

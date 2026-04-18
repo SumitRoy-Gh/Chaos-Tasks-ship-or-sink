@@ -11,6 +11,10 @@ const LEADERBOARD = [
   { rank: 7, emoji: '😈', name: 'VoidWalker_X', badge: 'Suspiciously Calm', score: 410, color: '#00e5ff' },
 ]
 
+interface LeaderboardScreenProps {
+  userScore: number
+}
+
 export default function LeaderboardScreen({ userScore }: LeaderboardScreenProps) {
   const [players, setPlayers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)

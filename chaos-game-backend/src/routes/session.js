@@ -18,8 +18,8 @@ router.post('/start', (req, res) => {
       tasksCompleted: 0
     });
   } catch (error) {
-    console.error('[Session Start Error]:', error.message);
-    res.status(500).json({ error: 'Failed to start session' });
+    console.error('[Session Start Error Full]:', error);
+    res.status(500).json({ error: 'Failed to start session', detail: error.message });
   }
 });
 
@@ -31,8 +31,8 @@ router.get('/leaderboard', (req, res) => {
     const leaderboard = stmt.all();
     res.json(leaderboard);
   } catch (error) {
-    console.error('[Leaderboard Error]:', error.message);
-    res.status(500).json({ error: 'Failed to fetch leaderboard' });
+    console.error('[Leaderboard Error Full]:', error);
+    res.status(500).json({ error: 'Failed to fetch leaderboard', detail: error.message });
   }
 });
 
@@ -50,8 +50,8 @@ router.get('/:sessionId', (req, res) => {
 
     res.json(user);
   } catch (error) {
-    console.error('[Session Get Error]:', error.message);
-    res.status(500).json({ error: 'Database error' });
+    console.error('[Session Get Error Full]:', error);
+    res.status(500).json({ error: 'Database error', detail: error.message });
   }
 });
 
@@ -92,8 +92,8 @@ router.post('/:sessionId/update', (req, res) => {
     res.json(updatedUser);
 
   } catch (error) {
-    console.error('[Session Update Error]:', error.message);
-    res.status(500).json({ error: 'Failed to update session' });
+    console.error('[Session Update Error Full]:', error);
+    res.status(500).json({ error: 'Failed to update session', detail: error.message });
   }
 });
 
@@ -144,8 +144,8 @@ router.get('/:sessionId/stats', (req, res) => {
     });
 
   } catch (error) {
-    console.error('[Stats Error]:', error.message);
-    res.status(500).json({ error: 'Failed to fetch session stats' });
+    console.error('[Stats Error Full]:', error);
+    res.status(500).json({ error: 'Failed to fetch session stats', detail: error.message });
   }
 });
 

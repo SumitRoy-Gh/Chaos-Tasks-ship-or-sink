@@ -12,10 +12,12 @@ const allRewardsArray = JSON.parse(fs.readFileSync(rewardsDataPath, 'utf8'));
 // POST /api/reward
 router.post('/', async (req, res) => {
   try {
-    const { taskText, passed, difficulty, sessionId } = req.body || {};
+    const { taskText, difficulty, sessionId } = req.body || {};
+    // Normalize passed to a boolean (handles both true and "true")
+    const passed = req.body.passed === true || req.body.passed === 'true';
 
-    if (passed === undefined || !difficulty || !sessionId) {
-      return res.status(400).json({ error: 'passed (boolean), difficulty (string), and sessionId are required' });
+    if (!difficulty || !sessionId) {
+      return res.status(400).json({ error: 'Difficulty (string) and sessionId are required' });
     }
 
     console.log(`[Reward] Processing reward for ${difficulty} task. Session: ${sessionId} (Passed: ${passed})`);
@@ -87,8 +89,11 @@ router.post('/', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('[Reward Error]:', error.message);
-    res.status(500).json({ error: 'Failed to process reward and save to database.' });
+    console.error('[Reward Error Full]:', error);
+    res.status(500).json({ 
+      error: 'Failed to process reward.',
+      detail: error.message
+    });
   }
 });
 

@@ -37,8 +37,11 @@ router.post('/', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('[Task Error]:', error.message);
-    res.status(500).json({ error: 'Failed to generate task. Try again.' });
+    console.error('[Task Error Full]:', error);
+    res.status(500).json({ 
+      error: 'Failed to generate task.',
+      detail: error.message
+    });
   }
 });
 

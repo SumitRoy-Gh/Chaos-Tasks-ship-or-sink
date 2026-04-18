@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE = 'http://localhost:5000'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
 
 export async function startSession() {
   const response = await axios.post(`${API_BASE}/api/session/start`)

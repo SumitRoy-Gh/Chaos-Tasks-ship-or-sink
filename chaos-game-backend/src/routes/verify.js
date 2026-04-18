@@ -12,10 +12,18 @@ const { verifyImage, generateJudgment } = require('../services/hfService');
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 ffmpeg.setFfprobePath(ffprobeInstaller.path);
 
+// Absolute path for uploads
+const uploadsDir = path.join(__dirname, '../../uploads');
+
+// Ensure directory exists
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
 // Multer setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + path.extname(file.originalname);
@@ -112,8 +120,11 @@ router.post('/', upload.single('image'), async (req, res) => {
     });
 
   } catch (error) {
-    console.error('[Verify Error]:', error.message);
-    res.status(500).json({ error: 'Verification process failed.' });
+    console.error('[Verify Error Full]:', error);
+    res.status(500).json({ 
+      error: 'Verification process failed.',
+      detail: error.message
+    });
   } finally {
     // Cleanup
     if (filePath && fs.existsSync(filePath)) fs.unlinkSync(filePath);

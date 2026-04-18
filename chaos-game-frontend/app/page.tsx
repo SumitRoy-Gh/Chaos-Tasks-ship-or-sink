@@ -104,14 +104,13 @@ export default function ChaosTasks() {
     try {
       const task = await getTask(diff, playerId || undefined)
       setCurrentTask(task)
+      setGameScreen('task')
     } catch (err) {
       console.error('Failed to fetch task:', err)
-      const tasks = MOCK_TASKS[diff]
-      const mock = tasks[Math.floor(Math.random() * tasks.length)]
-      setCurrentTask({ task: mock.task, taskLabel: mock.category })
+      // Show error to user instead of silently using mock
+      alert('Failed to get task from AI. Check your backend is running!')
     }
     setIsLoading(false)
-    setGameScreen('task')
   }, [playerId])
 
   // Initialize Session
@@ -215,6 +214,11 @@ export default function ChaosTasks() {
   // Handle upload submit
   const handleUploadSubmit = useCallback(async (file: File) => {
     if (!currentTask) return
+    if (!playerId) {
+      console.error('No session ID found!')
+      alert('Your session is missing. Please refresh the page!')
+      return
+    }
     
     setIsLoading(true)
     setChaosTrigger(true)
@@ -222,9 +226,8 @@ export default function ChaosTasks() {
     try {
       const response = await verifyTask(file, currentTask.taskLabel, currentTask.task)
       
-      // Use the reward endpoint to update points and history in DB
       const rewardResponse = await postReward(
-        playerId || 'anon',
+        playerId,
         currentTask.task,
         response.passed,
         difficulty
@@ -249,29 +252,24 @@ export default function ChaosTasks() {
         if (difficulty === 'hard') setHardFails(prev => prev + 1)
         addActivity('rejected', currentTask.task, pointsEarned)
       }
-    } catch (error) {
-      const passed = Math.random() > 0.3
-      const messages = passed ? MOCK_RESPONSES.approved : MOCK_RESPONSES.rejected
-      let points = passed ? 100 : 10
-      if (hasDoublePoints && passed) {
-        points *= 2
-        setHasDoublePoints(false)
-      }
+    } catch (error: any) {
+      // Diagnostic logging: helps identify if it's a network error or a server error
+      const errorDetail = error?.response?.data?.detail || error?.response?.data?.error || error.message;
+      console.error('Submit Error Diagnostic:', {
+        message: error.message,
+        response: error?.response?.data,
+        status: error?.response?.status
+      })
       
       setResult({
-        passed,
-        message: messages[Math.floor(Math.random() * messages.length)],
-        confidence: 0.7 + Math.random() * 0.25,
-        points,
+        passed: false,
+        message: `AI judge is down. Detail: ${errorDetail}. You fail by default. 💀`,
+        confidence: 0,
+        points: 0,
       })
-      setScore(prev => prev + points)
       setTasksCompleted(prev => prev + 1)
-      if (passed) {
-        setPassedTasks(prev => prev + 1)
-        addActivity('approved', currentTask.task, points)
-      } else {
-        if (difficulty === 'hard') setHardFails(prev => prev + 1)
-        addActivity('rejected', currentTask.task, points)
+      if (currentTask) {
+        addActivity('rejected', currentTask.task, 0)
       }
     }
     setIsLoading(false)
