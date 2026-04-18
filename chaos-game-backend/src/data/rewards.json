@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "type": "discount",
+    "brand": "ChaosWear",
+    "title": "20% Off Streetwear",
+    "description": "Get 20% off your next purchase of chaotic fits.",
+    "code": "CHAOS20",
+    "pointsRequired": 50,
+    "rarity": "common"
+  },
+  {
+    "id": 2,
+    "type": "points",
+    "brand": "FitFreak",
+    "title": "+100 Bonus Fitness Points",
+    "description": "Boost your fitness tracker with 100 bonus points.",
+    "code": "FITBOOST",
+    "pointsRequired": 100,
+    "rarity": "common"
+  },
+  {
+    "id": 3,
+    "type": "badge",
+    "brand": "BurgerChaos",
+    "title": "Chaos Eater Badge",
+    "description": "A shiny badge for those who eat like there's no tomorrow.",
+    "code": "NO-CODE",
+    "pointsRequired": 150,
+    "rarity": "rare"
+  },
+  {
+    "id": 4,
+    "type": "referral",
+    "brand": "ChaosCloud",
+    "title": "1 Month Free Storage",
+    "description": "Invite 3 friends to get 1 month of unlimited storage.",
+    "code": "CLOUD-REF",
+    "pointsRequired": 200,
+    "rarity": "rare"
+  },
+  {
+    "id": 5,
+    "type": "discount",
+    "brand": "GamerGlow",
+    "title": "$10 Off RGB Lights",
+    "description": "Brighten your setup with $10 off any RGB kit.",
+    "code": "GLOWUP10",
+    "pointsRequired": 250,
+    "rarity": "common"
+  },
+  {
+    "id": 6,
+    "type": "badge",
+    "brand": "ChaosDev",
+    "title": "Master of Chaos Badge",
+    "description": "The ultimate recognition for chaotic coding.",
+    "code": "MASTER-DEV",
+    "pointsRequired": 500,
+    "rarity": "legendary"
+  },
+  {
+    "id": 7,
+    "type": "discount",
+    "brand": "CoffeeChaos",
+    "title": "Free Double Shot Espresso",
+    "description": "Caffeine for the truly chaotic.",
+    "code": "DOUBLESHOT",
+    "pointsRequired": 75,
+    "rarity": "common"
+  },
+  {
+    "id": 8,
+    "type": "points",
+    "brand": "CryptoChaos",
+    "title": "500 Chaos Tokens",
+    "description": "Utility tokens for the Chaos ecosystem.",
+    "code": "CRYPTOCK",
+    "pointsRequired": 400,
+    "rarity": "rare"
+  },
+  {
+    "id": 9,
+    "type": "referral",
+    "brand": "MusicChaos",
+    "title": "VIP Concert Access",
+    "description": "Refer 10 friends for a chance to win VIP tickets.",
+    "code": "VIP-CHANCE",
+    "pointsRequired": 1000,
+    "rarity": "legendary"
+  },
+  {
+    "id": 10,
+    "type": "badge",
+    "brand": "ChaosExplorer",
+    "title": "World Traveler Badge",
+    "description": "Unlock this by completing tasks in 3 different locations.",
+    "code": "EXPLORER",
+    "pointsRequired": 300,
+    "rarity": "rare"
+  }
+]
