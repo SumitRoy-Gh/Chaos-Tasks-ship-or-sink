@@ -1,6 +1,6 @@
 # Chaos Tasks ⚡
 
-Chaos Tasks is a gamified task verification application where users complete weird, real-world tasks and prove them via photo uploads. An AI Judge (Groq-powered) evaluates the proof and awards chaos points.
+Chaos Tasks is an interesting gamified task verification application where users complete weird, real-world tasks and prove them via photo uploads. An AI Judge (Groq-powered) evaluates the proof and awards chaos points.
 
 ## 🚀 Project Overview
 
@@ -120,4 +120,4 @@ cd chaos-tasks
 
 ---
 
-*Stay chaotic.* ⚡
+
