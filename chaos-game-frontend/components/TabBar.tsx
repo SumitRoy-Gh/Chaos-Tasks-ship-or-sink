@@ -1,6 +1,6 @@
 'use client'
 
-type Tab = 'home' | 'spin' | 'board' | 'dash' | 'bug'
+type Tab = 'home' | 'spin' | 'board' | 'dash'
 
 interface TabBarProps {
   activeTab: Tab
@@ -12,7 +12,6 @@ const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: 'spin', label: 'SPIN', emoji: '🎡' },
   { id: 'board', label: 'BOARD', emoji: '🏆' },
   { id: 'dash', label: 'DASH', emoji: '📊' },
-  { id: 'bug', label: 'BUG', emoji: '🐛' },
 ]
 
 export default function TabBar({ activeTab, onTabChange }: TabBarProps) {
