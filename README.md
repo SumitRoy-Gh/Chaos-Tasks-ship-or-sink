@@ -117,7 +117,7 @@ cd chaos-tasks
 1. Create a feature branch.
 2. Ensure your code follows the established glassmorphic design system.
 3. Submit a PR with detailed notes on changes.
-
+...
 ---
 
 
